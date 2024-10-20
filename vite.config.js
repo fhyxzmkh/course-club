@@ -5,6 +5,6 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 8888, // 修改为你想要的端口号
+    port: 8899, // 修改为你想要的端口号
   },
 });
