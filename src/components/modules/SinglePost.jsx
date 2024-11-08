@@ -1,34 +1,29 @@
-import { Button, Card, Collapse, Divider, Input, Space } from "antd";
+import { Card, Divider } from "antd";
 import { Avatar } from "antd";
 import { CommentList } from "./CommentList.jsx";
+import { NewComment } from "./NewComment.jsx";
+import { useState } from "react";
 
 const { Meta } = Card;
 
-const item = [
-  {
-    key: "1",
-    label: "展开评论区",
-    children: <CommentList />,
-  },
-];
+export const SinglePost = ({ post }) => {
+  const [comments, setComments] = useState([]);
 
-export const SinglePost = () => {
   return (
     <>
       <Card type="Inner">
         <Meta
-          avatar={
-            <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
-          }
-          title="Username"
-          description="This is content..."
+          avatar={<Avatar src="https://api.dicebear.com/9.x/fun-emoji/svg" />}
+          title={post.creator_name}
+          description={post.content}
         />
         <Divider />
-        <Space.Compact style={{ width: "100%" }}>
-          <Input placeholder="Comment" />
-          <Button type="primary">Submit</Button>
-        </Space.Compact>
-        <Collapse className="mt-2" items={item} />
+        <NewComment parentId={post._id} setComments={setComments} />
+        <CommentList
+          parentId={post._id}
+          comments={comments}
+          setComments={setComments}
+        />
       </Card>
     </>
   );

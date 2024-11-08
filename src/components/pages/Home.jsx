@@ -43,7 +43,7 @@ export const Home = () => {
           </div>
         </div>
         <div className="md:col-span-2 bg-white p-4 rounded shadow-md">
-          <h2 className="text-xl font-bold mb-3 text-center">交流互动</h2>
+          {/*<h2 className="text-xl font-bold mb-3 text-center">交流互动</h2>*/}
           <PostList />
         </div>
       </div>

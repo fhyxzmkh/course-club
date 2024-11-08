@@ -1,7 +1,25 @@
 import "./tailwind.css";
 import { Link } from "react-router-dom";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useState } from "react";
+import { Button } from "antd";
 
 export function NavBar() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleLogIn = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+      setLoggedIn(true);
+    },
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  const handleLogOut = () => {
+    googleLogout();
+    setLoggedIn(false);
+  };
+
   return (
     <>
       <nav className="flex justify-between items-center bg-white p-4 shadow-md">
@@ -36,17 +54,20 @@ export function NavBar() {
             </li>
             <li>
               <Link
-                to="/comment-board"
+                to="/team-zone"
                 className="text-blue-500 hover:text-blue-600"
               >
-                留言板
+                小组空间
               </Link>
             </li>
           </ul>
         </div>
         <div className="flex space-x-4 ml-4">
-          <div>登录组件</div>
-          <div>个人信息</div>
+          {!loggedIn ? (
+            <Button onClick={handleLogIn}>Sign in with Google 🚀 </Button>
+          ) : (
+            <Button onClick={handleLogOut}>Log out</Button>
+          )}
         </div>
       </nav>
     </>
