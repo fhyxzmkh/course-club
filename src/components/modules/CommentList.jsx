@@ -5,7 +5,7 @@ export const CommentList = ({ parentId, comments, setComments }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`api/comment?parentId=${parentId}`);
+        const response = await fetch(`/api/comment?parentId=${parentId}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

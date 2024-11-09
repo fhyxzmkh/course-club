@@ -27,19 +27,19 @@ export function NavBar() {
   const handleLogInSuccess = (codeResponse) => {
     const userPayload = jwtDecode(codeResponse.credential);
 
-    // fetch(
-    //   `https://oauth2.googleapis.com/tokeninfo?id_token=${codeResponse.credential}`,
-    // )
-    //   .then((res) => {
-    //     if (res.ok) {
-    //       console.log("Valid token!");
-    //     } else {
-    //       console.error("Invalid token!");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Network error during login:", error);
-    //   });
+    fetch(
+      `https://oauth2.googleapis.com/tokeninfo?id_token=${codeResponse.credential}`,
+    )
+      .then((res) => {
+        if (res.ok) {
+          console.log("Valid token!");
+        } else {
+          console.error("Invalid token!");
+        }
+      })
+      .catch((error) => {
+        console.error("Network error during login:", error);
+      });
 
     const name = userPayload.name;
     const sub = userPayload.sub;
