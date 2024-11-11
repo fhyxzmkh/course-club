@@ -8,6 +8,7 @@ import org.backend.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.socket.TextMessage;
 
 @RestController
 public class MessageController {
@@ -43,5 +44,4 @@ public class MessageController {
             return ResponseEntity.status(500).body("Failed to send message: " + e.getMessage());
         }
     }
-
 }

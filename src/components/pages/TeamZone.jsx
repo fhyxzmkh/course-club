@@ -1,6 +1,7 @@
 import { Chat } from "../modules/Chat.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useWebSocket, { ReadyState } from "react-use-websocket";
 
 const ALL_CHAT = {
   _id: "ALL_CHAT",
@@ -30,6 +31,8 @@ const TEST_DATA = {
 };
 
 export const TeamZone = () => {
+  const socketUrl = "ws://localhost:8080/WebSocket";
+
   const [activeChat, setActiveChat] = useState(TEST_DATA);
 
   useEffect(() => {
@@ -53,6 +56,40 @@ export const TeamZone = () => {
 
     loadMessageHistory(ALL_CHAT);
   }, []);
+
+  const addMessages = (data) => {
+    console.log("addMessages:" + data);
+    setActiveChat((prevActiveChat) => ({
+      recipient: prevActiveChat.recipient,
+      messages: prevActiveChat.messages.concat(data),
+    }));
+  };
+
+  // useEffect(() => {
+  //   const socket = io("ws://localhost:8080/WebSocket");
+  //
+  //   socket.on("connect", () => {
+  //     console.log("WebSocket连接已建立");
+  //   });
+  //
+  //   //socket.on("message", addMessages);
+  //
+  //   return () => socket.off("message", addMessages);
+  // }, []);
+
+  const {
+    sendMessage,
+    sendJsonMessage,
+    lastMessage,
+    lastJsonMessage,
+    readyState,
+    getWebSocket,
+  } = useWebSocket(socketUrl, {
+    onOpen: () => console.log("opened"),
+    onMessage: () => addMessages,
+    onClose: () => console.log("closed"),
+    shouldReconnect: (closeEvent) => true,
+  });
 
   return (
     <>
