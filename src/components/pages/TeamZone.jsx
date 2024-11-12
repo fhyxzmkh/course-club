@@ -8,32 +8,13 @@ const ALL_CHAT = {
   name: "ALL_CHAT",
 };
 
-const TEST_MESSAGES = [
-  {
-    sender: {
-      _id: 0,
-      name: "Kenneth",
-    },
-    content: "I am chatting...",
-  },
-  {
-    sender: {
-      _id: 1,
-      name: "Spike",
-    },
-    content: "Me too!",
-  },
-];
-
-const TEST_DATA = {
-  recipient: ALL_CHAT,
-  messages: TEST_MESSAGES,
-};
-
-export const TeamZone = () => {
+export const TeamZone = (props) => {
   const socketUrl = "ws://localhost:8080/WebSocket";
 
-  const [activeChat, setActiveChat] = useState(TEST_DATA);
+  const [activeChat, setActiveChat] = useState({
+    recipient: ALL_CHAT,
+    messages: [],
+  });
 
   useEffect(() => {
     const loadMessageHistory = async (recipient) => {
@@ -41,9 +22,6 @@ export const TeamZone = () => {
         const response = await axios.get("/api/chat", {
           params: { recipientId: recipient._id },
         });
-
-        console.log(response);
-        console.log(response.data);
 
         setActiveChat({
           recipient: recipient,
@@ -57,26 +35,6 @@ export const TeamZone = () => {
     loadMessageHistory(ALL_CHAT);
   }, []);
 
-  const addMessages = (data) => {
-    console.log("addMessages:" + data);
-    setActiveChat((prevActiveChat) => ({
-      recipient: prevActiveChat.recipient,
-      messages: prevActiveChat.messages.concat(data),
-    }));
-  };
-
-  // useEffect(() => {
-  //   const socket = io("ws://localhost:8080/WebSocket");
-  //
-  //   socket.on("connect", () => {
-  //     console.log("WebSocket连接已建立");
-  //   });
-  //
-  //   //socket.on("message", addMessages);
-  //
-  //   return () => socket.off("message", addMessages);
-  // }, []);
-
   const {
     sendMessage,
     sendJsonMessage,
@@ -86,7 +44,19 @@ export const TeamZone = () => {
     getWebSocket,
   } = useWebSocket(socketUrl, {
     onOpen: () => console.log("opened"),
-    onMessage: () => addMessages,
+
+    onMessage: (event) => {
+      try {
+        const messageData = JSON.parse(event.data);
+
+        setActiveChat((prevActiveChat) => ({
+          recipient: messageData.recipientId,
+          messages: prevActiveChat.messages.concat(messageData),
+        }));
+      } catch (error) {
+        console.error("Error updating message history:", error);
+      }
+    },
     onClose: () => console.log("closed"),
     shouldReconnect: (closeEvent) => true,
   });
@@ -94,9 +64,13 @@ export const TeamZone = () => {
   return (
     <>
       <div className="flex relative">
-        <div className="relative">
-          <Chat data={activeChat} />
-        </div>
+        {props.userId === null ? (
+          <p>请先登录！</p>
+        ) : (
+          <div className="relative">
+            <Chat data={activeChat} />
+          </div>
+        )}
       </div>
     </>
   );

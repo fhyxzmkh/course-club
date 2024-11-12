@@ -20,7 +20,7 @@ public class WebSocketServer {
     @OnOpen
     public void onOpen(Session session) {
         this.session = session;
-        WebSocketManager.sentToUser(session, "WebSocket is connected!");
+        //WebSocketManager.sentToUser(session, "WebSocket is connected!");
         WebSocketManager.addWebSocketServer(this);
         log.info("与SessionId：{}建立连接", session.getId());
     }

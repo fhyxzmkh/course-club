@@ -1,6 +1,8 @@
 package org.backend.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
+import org.backend.config.WebSocketManager;
 import org.backend.model.Message;
 import org.backend.model.MessageRequest;
 import org.backend.model.User;
@@ -38,6 +40,13 @@ public class MessageController {
             message.setSenderName(currentUser.getName());
 
             messageRepository.save(message);
+
+            // emit message
+            ObjectMapper objectMapper = new ObjectMapper();
+            String messageJson = objectMapper.writeValueAsString(message);
+
+            // 发送消息
+            WebSocketManager.sentToAllUser(messageJson);
 
             return ResponseEntity.ok("Message sent successfully!");
         } catch (Exception e) {

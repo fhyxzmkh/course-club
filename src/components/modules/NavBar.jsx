@@ -1,84 +1,74 @@
 import "./tailwind.css";
 import { Link } from "react-router-dom";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
-import { useEffect, useState } from "react";
 import { Button } from "antd";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
-export function NavBar() {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // Check session on component mount
-    fetch("/api/check-session")
-      .then((response) => {
-        if (response.ok) {
-          setLoggedIn(true);
-        } else {
-          setLoggedIn(false);
-        }
-      })
-      .catch((error) => {
-        console.error("Error checking session:", error);
-        setLoggedIn(false);
-      });
-  }, []);
-
+export function NavBar(props) {
   const handleLogInSuccess = (codeResponse) => {
     const userPayload = jwtDecode(codeResponse.credential);
 
-    // fetch(
-    //   `https://oauth2.googleapis.com/tokeninfo?id_token=${codeResponse.credential}`,
-    // )
-    //   .then((res) => {
-    //     if (res.ok) {
-    //       console.log("Valid token!");
-    //     } else {
-    //       console.error("Invalid token!");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Network error during login:", error);
-    //   });
+    axios
+      .get(
+        `https://oauth2.googleapis.com/tokeninfo?id_token=${codeResponse.credential}`,
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Valid token!");
+        } else {
+          console.error("Invalid token!");
+          return;
+        }
+      })
+      .catch((error) => {
+        console.error("Network error during login:", error);
+      });
 
     const name = userPayload.name;
     const sub = userPayload.sub;
 
-    fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ googleId: sub, name: name }),
-    })
+    axios
+      .post(
+        "/api/login",
+        {
+          googleId: sub,
+          name: name,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      )
       .then((response) => {
-        if (response.ok) {
-          console.log("Login successful");
-          setLoggedIn(true);
+        if (response.status === 200) {
+          alert("Login successful");
+          props.setUserId(response.data.userId);
         } else {
-          console.error("Login failed");
+          alert("Login failed");
         }
       })
       .catch((error) => {
-        console.error("Error during backend login:", error);
+        alert("Error during backend login:", error);
       });
   };
 
   const handleLogOut = () => {
     googleLogout();
-    fetch("/api/logout", {
-      method: "POST",
-    })
+
+    axios
+      .post("/api/logout")
       .then((response) => {
-        if (response.ok) {
-          console.log("Logout successful");
-          setLoggedIn(false);
+        if (response.status === 200) {
+          alert("Logout successful");
+          props.setUserId(null);
         } else {
-          console.error("Logout failed");
+          alert("Logout failed");
         }
       })
       .catch((error) => {
-        console.error("Error during backend logout:", error);
+        alert("Error during backend logout:", error);
       });
   };
 
@@ -125,7 +115,7 @@ export function NavBar() {
           </ul>
         </div>
         <div className="flex space-x-4 ml-4">
-          {!loggedIn ? (
+          {props.userId === null ? (
             <GoogleLogin
               onSuccess={handleLogInSuccess}
               onError={() => alert("Something went wrong...")}

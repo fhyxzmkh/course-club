@@ -2,6 +2,7 @@ package org.backend.config;
 
 import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
+import org.backend.model.Message;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
