@@ -1,5 +1,6 @@
 package org.backend.config;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnMessage;
@@ -7,7 +8,10 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
 import lombok.extern.slf4j.Slf4j;
+import org.backend.model.User;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Slf4j
@@ -17,11 +21,13 @@ public class WebSocketServer {
 
     private Session session;
 
+    public static ConcurrentHashMap<String, User> userList = new ConcurrentHashMap<>();
+
     @OnOpen
     public void onOpen(Session session) {
         this.session = session;
-        //WebSocketManager.sentToUser(session, "WebSocket is connected!");
         WebSocketManager.addWebSocketServer(this);
+
         log.info("与SessionId：{}建立连接", session.getId());
     }
 

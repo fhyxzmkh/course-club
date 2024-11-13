@@ -106,6 +106,14 @@ export function NavBar(props) {
             </li>
             <li>
               <Link
+                to="/class-zone"
+                className="text-blue-500 hover:text-blue-600"
+              >
+                班级空间
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/team-zone"
                 className="text-blue-500 hover:text-blue-600"
               >

@@ -3,13 +3,19 @@ package org.backend.model;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Post")
 public class Post {
     @JsonSerialize(using = ToStringSerializer.class)
+
+    @Indexed(unique = true)
     private ObjectId _id;
+
+    @Indexed
     private String creator_name;
+
     private String content;
 
     public Post(ObjectId _id, String creator_name, String content) {

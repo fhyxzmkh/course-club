@@ -3,6 +3,7 @@ package org.backend.controller;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import jakarta.servlet.http.HttpSession;
+import org.backend.config.WebSocketServer;
 import org.backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -35,6 +36,7 @@ public class AuthController {
 
             User user = getOrCreateUser(googleId, name);
             session.setAttribute("user", user);
+
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             System.out.println("Failed to log in: " + e.getMessage());

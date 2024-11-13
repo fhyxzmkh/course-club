@@ -8,6 +8,7 @@ import { Exam } from "./pages/Exam.jsx";
 import { TeamZone } from "./pages/TeamZone.jsx";
 import { Footer } from "./modules/Footer.jsx";
 import { useEffect, useState } from "react";
+import { ClassZone } from "./pages/ClassZone.jsx";
 import axios from "axios";
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/online-learning" element={<OnlineLearning />} />
             <Route path="/resource-download" element={<ResourceDownload />} />
             <Route path="/exam" element={<Exam />} />
+            <Route path="/class-zone" element={<ClassZone userId={userId} />} />
             <Route path="/team-zone" element={<TeamZone userId={userId} />} />
           </Routes>
         </div>

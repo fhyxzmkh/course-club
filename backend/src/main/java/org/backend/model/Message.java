@@ -1,5 +1,6 @@
 package org.backend.model;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -8,9 +9,11 @@ import java.util.Date;
 @Document(collection = "Message")
 public class Message {
 
+    @Indexed
     private String senderId;
     private String senderName;
 
+    @Indexed
     private String recipientId;
     private String recipientName;
 

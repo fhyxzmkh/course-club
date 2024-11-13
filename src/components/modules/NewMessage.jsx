@@ -27,7 +27,7 @@ export const NewMessage = (props) => {
   };
 
   return (
-    <Space.Compact style={{ width: "100%" }} block>
+    <Space.Compact style={{ width: "100%" }} block size="large">
       <Input
         placeholder="New message"
         value={messageValue}

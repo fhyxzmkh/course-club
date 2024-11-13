@@ -1,7 +1,12 @@
 package org.backend.model;
 
+import org.springframework.data.mongodb.core.index.Indexed;
+
 public class MessageRequest {
+    @Indexed
     private Recipient recipient;
+
+    @Indexed
     private String content;
 
     // Getters and Setters
@@ -23,7 +28,9 @@ public class MessageRequest {
 
     // Inner class for recipient
     public static class Recipient {
+        @Indexed(unique = true)
         private String _id;
+
         private String name;
 
         // Getters and Setters

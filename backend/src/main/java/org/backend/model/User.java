@@ -1,12 +1,18 @@
 package org.backend.model;
 
-import org.springframework.data.annotation.Id;
+
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "User")
 public class User {
+
     String name;
+
+    @Indexed(unique = true)
     String googleId;
+
+    @Indexed
     int groupId;
 
     public String getName() {
@@ -31,5 +37,14 @@ public class User {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", googleId='" + googleId + '\'' +
+                ", groupId=" + groupId +
+                '}';
     }
 }
