@@ -6,9 +6,7 @@ export const NewMessage = (props) => {
   const [messageValue, setMessageValue] = useState("");
 
   const sendMessage = async () => {
-    if (messageValue === "") {
-      return;
-    }
+    if (messageValue === "") return;
 
     try {
       const message = {

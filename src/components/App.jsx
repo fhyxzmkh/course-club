@@ -100,7 +100,7 @@ function App() {
         />
         <div className="App-container flex-1">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home userId={userId} />} />
             <Route path="/online-learning" element={<OnlineLearning />} />
             <Route path="/resource-download" element={<ResourceDownload />} />
             <Route path="/exam" element={<Exam />} />

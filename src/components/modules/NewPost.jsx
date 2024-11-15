@@ -6,6 +6,8 @@ export const NewPost = ({ setPosts }) => {
   const [postValue, setPostValue] = useState("");
 
   async function handleSubmit() {
+    if (postValue === "") return;
+
     const postData = {
       _id: new ObjectID(),
       creator_name: "admin",

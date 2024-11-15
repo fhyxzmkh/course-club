@@ -14,8 +14,6 @@ export const TeamZone = (props) => {
 
   const [teamMembers, setTeamMembers] = useState([]);
 
-  //const [activeUser, setActiveUser] = useState(TEAM_CHAT);
-
   const [activeChat, setActiveChat] = useState({
     recipient: TEAM_CHAT,
     messages: [],

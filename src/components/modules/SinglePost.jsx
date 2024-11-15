@@ -13,7 +13,7 @@ export const SinglePost = ({ post }) => {
     <>
       <Card type="Inner">
         <Meta
-          avatar={<Avatar src="https://api.dicebear.com/9.x/fun-emoji/svg" />}
+          avatar={<Avatar src="https://www.loliapi.com/acg/pp/" />}
           title={post.creator_name}
           description={post.content}
         />

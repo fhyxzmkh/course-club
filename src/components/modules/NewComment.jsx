@@ -6,6 +6,8 @@ export const NewComment = ({ parentId, setComments }) => {
   const [commentValue, setCommentValue] = useState("");
 
   async function handleSubmit() {
+    if (commentValue === "") return;
+
     const commentData = {
       _id: new ObjectID(),
       creator_name: "admin2",

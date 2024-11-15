@@ -1,3 +1,5 @@
+import { Space } from "antd";
+
 const TEAM_CHAT = {
   _id: "TEAM_CHAT",
   name: "TEAM_CHAT",
@@ -25,14 +27,15 @@ export const SingleUser = (props) => {
 
   return (
     <>
-      <div
+      <Space.Compact
+        block
         className={`bg-white rounded-sm p-4 hover:bg-gray-200 ${
-          props.isActive ? "bg-gray-400" : ""
+          props.isActive ? "bg-gray-300" : ""
         }`}
         onClick={handleClick}
       >
         {props.member.name}
-      </div>
+      </Space.Compact>
     </>
   );
 };
