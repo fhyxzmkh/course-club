@@ -10,31 +10,94 @@ import { Footer } from "./modules/Footer.jsx";
 import { useEffect, useState } from "react";
 import { ClassZone } from "./pages/ClassZone.jsx";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { googleLogout } from "@react-oauth/google";
 
 function App() {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     // Check session on component mount
+    axios.get("/api/check-session").then((response) => {
+      if (response.status === 200) {
+        setUserId(response.data.googleId);
+      }
+    });
+  }, []);
+
+  const handleLogIn = (codeResponse) => {
+    const userPayload = jwtDecode(codeResponse.credential);
+
     axios
-      .get("/api/check-session")
+      .get(
+        `https://oauth2.googleapis.com/tokeninfo?id_token=${codeResponse.credential}`,
+      )
       .then((response) => {
         if (response.status === 200) {
-          setUserId(response.data.googleId);
+          console.log("Valid token!");
         } else {
-          setUserId(null);
+          console.error("Invalid token!");
         }
       })
       .catch((error) => {
-        console.error("Error checking session:", error);
-        setUserId(null);
+        console.error("Network error during login:", error);
       });
-  }, []);
+
+    const name = userPayload.name;
+    const sub = userPayload.sub;
+
+    axios
+      .post(
+        "/api/login",
+        {
+          googleId: sub,
+          name: name,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Login successful");
+          setUserId(response.data.userId);
+        } else {
+          alert("Login failed");
+        }
+      })
+      .catch((error) => {
+        alert("Error during backend login:", error);
+      });
+  };
+
+  const handleLogOut = () => {
+    googleLogout();
+
+    axios
+      .post("/api/logout")
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Logout successful");
+          setUserId(null);
+        } else {
+          alert("Logout failed");
+        }
+      })
+      .catch((error) => {
+        alert("Error during backend logout:", error);
+      });
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
       <BrowserRouter>
-        <NavBar userId={userId} setUserId={setUserId} />
+        <NavBar
+          userId={userId}
+          handleLogIn={handleLogIn}
+          handleLogOut={handleLogOut}
+        />
         <div className="App-container flex-1">
           <Routes>
             <Route path="/" element={<Home />} />

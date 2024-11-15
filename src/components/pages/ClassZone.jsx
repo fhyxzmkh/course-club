@@ -20,7 +20,10 @@ export const ClassZone = (props) => {
     const loadMessageHistory = async (recipient) => {
       try {
         const response = await axios.get("/api/chat", {
-          params: { recipientId: recipient._id },
+          params: {
+            recipientId:
+              recipient._id === undefined ? recipient.googleId : recipient._id,
+          },
         });
 
         setActiveChat({
@@ -49,8 +52,13 @@ export const ClassZone = (props) => {
       try {
         const messageData = JSON.parse(event.data);
 
+        const _recipient = {
+          _id: messageData.recipientId,
+          name: messageData.recipientName,
+        };
+
         setActiveChat((prevActiveChat) => ({
-          recipient: messageData.recipientId,
+          recipient: _recipient,
           messages: prevActiveChat.messages.concat(messageData),
         }));
       } catch (error) {

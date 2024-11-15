@@ -14,6 +14,8 @@ export const TeamZone = (props) => {
 
   const [teamMembers, setTeamMembers] = useState([]);
 
+  //const [activeUser, setActiveUser] = useState(TEAM_CHAT);
+
   const [activeChat, setActiveChat] = useState({
     recipient: TEAM_CHAT,
     messages: [],
@@ -35,46 +37,53 @@ export const TeamZone = (props) => {
       }
     };
 
-    loadMessageHistory(TEAM_CHAT);
-  }, []);
+    loadMessageHistory(activeChat.recipient);
+  }, [activeChat.recipient._id]);
 
   useEffect(() => {
+    if (props.userId === null) return;
     axios
       .get(`/api/teamMembers?userId=${props.userId}`)
       .then((response) => {
-        console.log(response.data);
         setTeamMembers([TEAM_CHAT].concat(response.data));
       })
       .catch((error) => {
         console.error("Error fetching team members:", error);
       });
-  }, []);
+  }, [props.userId]);
 
-  // const {
-  //   sendMessage,
-  //   sendJsonMessage,
-  //   lastMessage,
-  //   lastJsonMessage,
-  //   readyState,
-  //   getWebSocket,
-  // } = useWebSocket(socketUrl, {
-  //   onOpen: () => console.log("opened"),
-  //
-  //   onMessage: (event) => {
-  //     try {
-  //       const messageData = JSON.parse(event.data);
-  //
-  //       setActiveChat((prevActiveChat) => ({
-  //         recipient: messageData.recipientId,
-  //         messages: prevActiveChat.messages.concat(messageData),
-  //       }));
-  //     } catch (error) {
-  //       console.error("Error updating message history:", error);
-  //     }
-  //   },
-  //   onClose: () => console.log("closed"),
-  //   shouldReconnect: (closeEvent) => true,
-  // });
+  const {
+    sendMessage,
+    sendJsonMessage,
+    lastMessage,
+    lastJsonMessage,
+    readyState,
+    getWebSocket,
+  } = useWebSocket(socketUrl, {
+    onOpen: () => console.log("opened"),
+
+    onMessage: (event) => {
+      try {
+        const messageData = JSON.parse(event.data);
+
+        console.log(messageData);
+
+        const _recipient = {
+          _id: messageData.recipientId,
+          name: messageData.recipientName,
+        };
+
+        setActiveChat((prevActiveChat) => ({
+          recipient: _recipient,
+          messages: prevActiveChat.messages.concat(messageData),
+        }));
+      } catch (error) {
+        console.error("Error updating message history:", error);
+      }
+    },
+    onClose: () => console.log("closed"),
+    shouldReconnect: (closeEvent) => true,
+  });
 
   if (props.userId === null) {
     return <p>请先登录！</p>;
@@ -86,8 +95,8 @@ export const TeamZone = (props) => {
           <div className="w-1/4">
             <ChatList
               teamMembers={teamMembers}
-              setTeamMembers={setTeamMembers}
-              active={activeChat.recipient}
+              activeChat={activeChat}
+              setActiveChat={setActiveChat}
             />
           </div>
           <div className="w-3/4">
