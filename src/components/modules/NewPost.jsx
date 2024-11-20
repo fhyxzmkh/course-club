@@ -2,11 +2,16 @@ import { Button, Input, Space } from "antd";
 import { useState } from "react";
 import ObjectID from "bson-objectid";
 
-export const NewPost = ({ setPosts }) => {
+export const NewPost = ({ setPosts, userId }) => {
   const [postValue, setPostValue] = useState("");
 
   async function handleSubmit() {
     if (postValue === "") return;
+
+    if (userId === null) {
+      alert("请先登录！");
+      return;
+    }
 
     const postData = {
       _id: new ObjectID(),

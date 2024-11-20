@@ -8,6 +8,11 @@ export const NewComment = ({ parentId, setComments }) => {
   async function handleSubmit() {
     if (commentValue === "") return;
 
+    if (userId === null) {
+      alert("请先登录!");
+      return;
+    }
+
     const commentData = {
       _id: new ObjectID(),
       creator_name: "admin2",

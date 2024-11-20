@@ -3,7 +3,7 @@ import { SinglePost } from "./SinglePost.jsx";
 import { List } from "antd";
 import { NewPost } from "./NewPost.jsx";
 
-export const PostList = () => {
+export const PostList = (props) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const PostList = () => {
 
   return (
     <>
-      <NewPost setPosts={setPosts} />
+      <NewPost setPosts={setPosts} userId={props.userId} />
       <List
         itemLayout="vertical"
         bordered={true}
@@ -34,7 +34,7 @@ export const PostList = () => {
         split={false}
         renderItem={(post) => (
           <List.Item key={post._id}>
-            <SinglePost post={post} />
+            <SinglePost post={post} userId={props.userId} />
           </List.Item>
         )}
         style={{ minHeight: "780px", maxHeight: "780px", overflowY: "auto" }} // 设置最大高度和滚动条

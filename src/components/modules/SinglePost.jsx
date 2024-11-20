@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const { Meta } = Card;
 
-export const SinglePost = ({ post }) => {
+export const SinglePost = ({ post, userId }) => {
   const [comments, setComments] = useState([]);
 
   return (
@@ -18,7 +18,11 @@ export const SinglePost = ({ post }) => {
           description={post.content}
         />
         <Divider />
-        <NewComment parentId={post._id} setComments={setComments} />
+        <NewComment
+          parentId={post._id}
+          setComments={setComments}
+          userId={userId}
+        />
         <CommentList
           parentId={post._id}
           comments={comments}
