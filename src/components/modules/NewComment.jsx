@@ -1,9 +1,23 @@
 import { Button, Input, Space } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ObjectID from "bson-objectid";
+import axios from "axios";
 
-export const NewComment = ({ parentId, setComments }) => {
+export const NewComment = ({ parentId, setComments, userId }) => {
   const [commentValue, setCommentValue] = useState("");
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    if (userId === null) return;
+    axios
+      .get(`/api/profile?userId=${userId}`)
+      .then((response) => {
+        setName(response.data.name);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [userId]);
 
   async function handleSubmit() {
     if (commentValue === "") return;
@@ -15,7 +29,7 @@ export const NewComment = ({ parentId, setComments }) => {
 
     const commentData = {
       _id: new ObjectID(),
-      creator_name: "admin2",
+      creator_name: name,
       parent: parentId,
       content: commentValue,
     };

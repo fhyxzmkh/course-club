@@ -2,6 +2,7 @@ import { Chat } from "../modules/Chat.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import { Result } from "antd";
 
 const ALL_CHAT = {
   _id: "ALL_CHAT",
@@ -70,8 +71,17 @@ export const ClassZone = (props) => {
   });
 
   if (props.userId === null) {
-    return <p>请先登录！</p>;
+    return (
+      <div className="p-4 bg-gray-100 min-h-screen flex justify-center">
+        <Result
+          className="font-bold"
+          status="warning"
+          title="This page is only visible when logged in!"
+        />
+      </div>
+    );
   }
+
   return (
     <>
       <div className="p-4 bg-gray-100 min-h-screen flex justify-center">

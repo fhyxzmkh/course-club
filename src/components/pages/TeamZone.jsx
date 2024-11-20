@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { ChatList } from "../modules/ChatList.jsx";
+import { Button, Result } from "antd";
 
 const TEAM_CHAT = {
   _id: "TEAM_CHAT",
@@ -84,8 +85,17 @@ export const TeamZone = (props) => {
   });
 
   if (props.userId === null) {
-    return <p>请先登录！</p>;
+    return (
+      <div className="p-4 bg-gray-100 min-h-screen flex justify-center">
+        <Result
+          className="font-bold"
+          status="warning"
+          title="This page is only visible when logged in!"
+        />
+      </div>
+    );
   }
+
   return (
     <>
       <div className="p-4 bg-gray-100 min-h-screen flex justify-center">

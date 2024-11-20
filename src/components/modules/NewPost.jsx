@@ -2,7 +2,7 @@ import { Button, Input, Space } from "antd";
 import { useState } from "react";
 import ObjectID from "bson-objectid";
 
-export const NewPost = ({ setPosts, userId }) => {
+export const NewPost = ({ setPosts, userId, name }) => {
   const [postValue, setPostValue] = useState("");
 
   async function handleSubmit() {
@@ -15,7 +15,7 @@ export const NewPost = ({ setPosts, userId }) => {
 
     const postData = {
       _id: new ObjectID(),
-      creator_name: "admin",
+      creator_name: name,
       content: postValue,
     };
 

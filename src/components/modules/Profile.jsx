@@ -1,23 +1,9 @@
 import { Avatar, Divider } from "antd";
-import { AntDesignOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const Profile = (props) => {
-  const [name, setName] = useState("");
   const [teamMembers, setTeamMembers] = useState([]);
-
-  useEffect(() => {
-    if (props.userId === null) return;
-    axios
-      .get(`/api/profile?userId=${props.userId}`)
-      .then((response) => {
-        setName(response.data.name);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [props.userId]);
 
   useEffect(() => {
     if (props.userId === null) return;
@@ -48,7 +34,7 @@ export const Profile = (props) => {
       </div>
       <Divider />
       <div className="flex justify-center items-center w-full h-auto font-bold">
-        {props.userId === null ? "游客" : name}
+        {props.userId === null ? "游客" : props.name}
       </div>
       <Divider />
       <div className="w-full h-auto text-center">

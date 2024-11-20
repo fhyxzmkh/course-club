@@ -26,7 +26,7 @@ export const PostList = (props) => {
 
   return (
     <>
-      <NewPost setPosts={setPosts} userId={props.userId} />
+      <NewPost setPosts={setPosts} userId={props.userId} name={props.name} />
       <List
         itemLayout="vertical"
         bordered={true}
