@@ -41,7 +41,7 @@ export const OnlineLearning = () => {
         <Divider />
         <div className="flex justify-center">
           <Document
-            file="http://localhost:8899/review.pdf"
+            file="/hostize/files/IYrT4cGTby/download/file.pdf"
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={onDocumentLoadError}
             loading={"加载中..."}
