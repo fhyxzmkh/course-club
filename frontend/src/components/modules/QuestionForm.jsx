@@ -2,6 +2,8 @@ import { Button, Form, Input, Select } from "antd";
 import axios from "axios";
 import React from "react";
 
+const { Option } = Select;
+
 export const QuestionForm = ({ isChange, currentQuestion }) => {
   const [form] = Form.useForm();
 
@@ -39,9 +41,7 @@ export const QuestionForm = ({ isChange, currentQuestion }) => {
         form={form}
         name="uploadQuestion"
         onFinish={onFinish}
-        initialValues={{
-          remember: true,
-        }}
+        initialValues={isChange ? currentQuestion : {}}
         layout="vertical"
       >
         <Form.Item

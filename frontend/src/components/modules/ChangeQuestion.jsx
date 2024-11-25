@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal, Button, Collapse, List } from "antd";
+import { Modal, Button, Collapse, List, Select } from "antd";
 import { QuestionForm } from "./QuestionForm.jsx";
+
+const { Option } = Select;
 
 export const ChangeQuestion = () => {
   const [questions, setQuestions] = useState([]);
