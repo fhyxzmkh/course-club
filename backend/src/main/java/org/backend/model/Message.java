@@ -1,5 +1,8 @@
 package org.backend.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +11,10 @@ import java.util.Date;
 
 @Document(collection = "Message")
 public class Message {
+    @JsonSerialize(using = ToStringSerializer.class)
+
+    @Indexed(unique = true)
+    private ObjectId _id;
 
     @Indexed
     private String senderId;
@@ -26,6 +33,14 @@ public class Message {
         this.recipientId = recipientId;
         this.recipientName = recipientName;
         this.content = content;
+    }
+
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
     }
 
     public String getSenderId() {

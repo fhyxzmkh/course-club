@@ -12,6 +12,7 @@ import { ClassZone } from "./pages/ClassZone.jsx";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { googleLogout } from "@react-oauth/google";
+import { AdminPage } from "./pages/AdminPage.jsx";
 
 function App() {
   const [userId, setUserId] = useState(null);
@@ -92,7 +93,7 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <BrowserRouter>
+      <BrowserRouter basename="/course-club">
         <NavBar
           userId={userId}
           handleLogIn={handleLogIn}
@@ -106,6 +107,7 @@ function App() {
             <Route path="/exam" element={<Exam />} />
             <Route path="/class-zone" element={<ClassZone userId={userId} />} />
             <Route path="/team-zone" element={<TeamZone userId={userId} />} />
+            <Route path="/admin" element={<AdminPage userId={userId} />} />
           </Routes>
         </div>
         <Footer />

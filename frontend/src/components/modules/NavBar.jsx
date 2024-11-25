@@ -1,9 +1,7 @@
 import "./tailwind.css";
 import { Link } from "react-router-dom";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import { Button } from "antd";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
 
 export function NavBar(props) {
   return (
@@ -52,6 +50,11 @@ export function NavBar(props) {
                 className="text-blue-500 hover:text-blue-600"
               >
                 小组空间
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin" className="text-blue-500 hover:text-blue-600">
+                网站管理
               </Link>
             </li>
           </ul>
