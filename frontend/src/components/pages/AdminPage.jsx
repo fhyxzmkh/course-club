@@ -1,7 +1,11 @@
 import {
   AppstoreOutlined,
+  FileAddOutlined,
   MailOutlined,
+  MessageOutlined,
+  QuestionOutlined,
   SettingOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useState } from "react";
@@ -12,6 +16,8 @@ import { ChangeQuestion } from "../modules/ChangeQuestion.jsx";
 import { ManageComment } from "../modules/ManageComment.jsx";
 import { ManageUser } from "../modules/ManageUser.jsx";
 import { ChangeGroup } from "../modules/ChangeGroup.jsx";
+import { ChangeResource } from "../modules/ChangeResource.jsx";
+import { DeleteResource } from "../modules/DeleteResource.jsx";
 
 const items = [
   {
@@ -35,15 +41,15 @@ const items = [
   {
     key: "sub2",
     label: "文件管理",
-    icon: <AppstoreOutlined />,
+    icon: <FileAddOutlined />,
     children: [
       {
         key: "3",
-        label: "上传文件",
+        label: "上传资源",
       },
       {
         key: "4",
-        label: "删除文件",
+        label: "删除资源",
       },
     ],
   },
@@ -53,7 +59,7 @@ const items = [
   {
     key: "sub3",
     label: "题目管理",
-    icon: <SettingOutlined />,
+    icon: <QuestionOutlined />,
     children: [
       {
         key: "5",
@@ -71,7 +77,7 @@ const items = [
   {
     key: "sub4",
     label: "消息管理",
-    icon: <SettingOutlined />,
+    icon: <MessageOutlined />,
     children: [
       {
         key: "7",
@@ -85,7 +91,7 @@ const items = [
   {
     key: "sub5",
     label: "成员管理",
-    icon: <SettingOutlined />,
+    icon: <TeamOutlined />,
     children: [
       {
         key: "8",
@@ -125,6 +131,18 @@ export const AdminPage = (props) => {
       <div className="bg-gray-100 w-full h-dvh overflow-y-auto">
         {menuKey === "1" ? <ManagePost /> : null}
         {menuKey === "2" ? <ManageComment /> : null}
+        {menuKey === "3" ? (
+          <ChangeResource
+            resource={props.resource}
+            setResource={props.setResource}
+          />
+        ) : null}
+        {menuKey === "4" ? (
+          <DeleteResource
+            resource={props.resource}
+            setResource={props.setResource}
+          />
+        ) : null}
         {menuKey === "5" ? <UploadQuestion /> : null}
         {menuKey === "6" ? <ChangeQuestion /> : null}
         {menuKey === "7" ? <ManageMassage /> : null}

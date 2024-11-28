@@ -45,7 +45,7 @@ export const ChangeGroup = () => {
 
   return (
     <>
-      <div className="w-1/2 mx-auto overflow-y-auto bg-white">
+      <div className="w-1/2 mx-auto overflow-y-auto bg-white mt-4">
         <List
           header={<p className="font-bold text-center">成员列表</p>}
           bordered

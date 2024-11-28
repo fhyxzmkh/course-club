@@ -41,7 +41,7 @@ export const ChangeQuestion = () => {
 
   return (
     <>
-      <div className="w-2/3 mx-auto overflow-y-auto bg-white">
+      <div className="w-2/3 mx-auto overflow-y-auto bg-white  mt-4">
         <List
           header={<p className="font-bold text-center">题目列表</p>}
           bordered

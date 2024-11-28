@@ -17,6 +17,13 @@ import { AdminPage } from "./pages/AdminPage.jsx";
 function App() {
   const [userId, setUserId] = useState(null);
 
+  const [resource, setResource] = useState([
+    {
+      name: "项目管理复习资料",
+      url: "https://pan.baidu.com/s/1_9_hJP1NkYGrLnWd2ZNObg?pwd=a3ha",
+    },
+  ]);
+
   useEffect(() => {
     // Check session on component mount
     axios.get("/api/check-session").then((response) => {
@@ -103,11 +110,23 @@ function App() {
           <Routes>
             <Route path="/" element={<Home userId={userId} />} />
             <Route path="/online-learning" element={<OnlineLearning />} />
-            <Route path="/resource-download" element={<ResourceDownload />} />
+            <Route
+              path="/resource-download"
+              element={<ResourceDownload resource={resource} />}
+            />
             <Route path="/exam" element={<Exam />} />
             <Route path="/class-zone" element={<ClassZone userId={userId} />} />
             <Route path="/team-zone" element={<TeamZone userId={userId} />} />
-            <Route path="/admin" element={<AdminPage userId={userId} />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminPage
+                  userId={userId}
+                  resource={resource}
+                  setResource={setResource}
+                />
+              }
+            />
           </Routes>
         </div>
         <Footer />

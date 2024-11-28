@@ -45,6 +45,7 @@ export const QuestionForm = ({ isChange, currentQuestion }) => {
         layout="vertical"
       >
         <Form.Item
+          className="mt-4"
           label="问题描述"
           name="question"
           rules={[

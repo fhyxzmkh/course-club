@@ -3,6 +3,7 @@ import {
   BookOutlined,
   FilePdfOutlined,
   FileTextOutlined,
+  FileUnknownOutlined,
 } from "@ant-design/icons";
 
 const text = [
@@ -21,7 +22,9 @@ const text = [
   "第15、16章",
 ];
 
-export const ResourceDownload = () => {
+// resource[i] : {name:String, url:String};
+
+export const ResourceDownload = ({ resource }) => {
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center p-4">
       <div className="w-full max-w-2xl bg-white shadow-lg rounded-lg p-8">
@@ -31,7 +34,7 @@ export const ResourceDownload = () => {
             <div>
               <h2 className="text-xl font-semibold text-gray-700 mb-2">教材</h2>
               <a
-                href="https://pan.baidu.com/s/1Vnv6KPZg7GlMNFjbsvZh1w?pwd=jcqs"
+                href="https://pan.baidu.com/s/12PoTwGP0PlraMoK1d4Qeyg?pwd=ghpv"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"
@@ -46,7 +49,22 @@ export const ResourceDownload = () => {
             <div>
               <h2 className="text-xl font-semibold text-gray-700 mb-2">试卷</h2>
               <a
-                href="https://pan.baidu.com/s/1vdpYCwRRUh9m48uVIYnmqQ?pwd=a3za"
+                href="https://pan.baidu.com/s/16UWTHLGsgu9qpSo30Iu77A?pwd=3i3c"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                Download
+              </a>
+            </div>
+          </div>
+          <Divider />
+          <div className="flex items-center space-x-4">
+            <FilePdfOutlined className="text-blue-500 text-2xl" />
+            <div>
+              <h2 className="text-xl font-semibold text-gray-700 mb-2">课件</h2>
+              <a
+                href="https://pan.baidu.com/s/1WP7HhNCHUWvpzLZOIW605g?pwd=ktij"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"
@@ -58,21 +76,21 @@ export const ResourceDownload = () => {
           <Divider />
           <div>
             <div className="relative">
-              <FilePdfOutlined className="absolute top-5 left-0 text-blue-500 text-2xl" />
+              <FileUnknownOutlined className="absolute top-5 left-0 text-blue-500 text-2xl" />
               <div className="ml-10">
                 <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                  课件
+                  其它
                 </h2>
                 <div className="grid grid-cols-1 gap-3 mt-1">
-                  {text.map((item, index) => (
+                  {resource.map((res, index) => (
                     <a
                       key={index}
-                      href="https://pan.baidu.com/s/1vdpYCwRRUh9m48uVIYnmqQ?pwd=a3za"
+                      href={res.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:underline"
                     >
-                      {item}
+                      {res.name}
                     </a>
                   ))}
                 </div>
