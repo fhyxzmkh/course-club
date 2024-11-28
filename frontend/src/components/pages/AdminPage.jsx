@@ -9,6 +9,9 @@ import { ManagePost } from "../modules/ManagePost.jsx";
 import { ManageMassage } from "../modules/ManageMassage.jsx";
 import { UploadQuestion } from "../modules/UploadQuestion.jsx";
 import { ChangeQuestion } from "../modules/ChangeQuestion.jsx";
+import { ManageComment } from "../modules/ManageComment.jsx";
+import { ManageUser } from "../modules/ManageUser.jsx";
+import { ChangeGroup } from "../modules/ChangeGroup.jsx";
 
 const items = [
   {
@@ -121,9 +124,12 @@ export const AdminPage = (props) => {
       </div>
       <div className="bg-gray-100 w-full h-dvh overflow-y-auto">
         {menuKey === "1" ? <ManagePost /> : null}
+        {menuKey === "2" ? <ManageComment /> : null}
         {menuKey === "5" ? <UploadQuestion /> : null}
         {menuKey === "6" ? <ChangeQuestion /> : null}
         {menuKey === "7" ? <ManageMassage /> : null}
+        {menuKey === "8" ? <ManageUser /> : null}
+        {menuKey === "9" ? <ChangeGroup /> : null}
       </div>
     </div>
   );

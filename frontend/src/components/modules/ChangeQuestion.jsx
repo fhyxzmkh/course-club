@@ -95,7 +95,7 @@ export const ChangeQuestion = () => {
       <Modal
         title="Edit Question"
         open={isModalOpen}
-        destroyOnClose={false}
+        destroyOnClose={true}
         footer={null}
         onCancel={() => setIsModalOpen(false)}
       >
