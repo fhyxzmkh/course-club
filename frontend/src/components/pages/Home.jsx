@@ -19,10 +19,14 @@ export const Home = (props) => {
   }, [props.userId]);
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen flex justify-center">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-screen-lg">
-        <Profile userId={props.userId} name={name} />
-        <div className="md:col-span-2 bg-white p-4 rounded shadow-md">
+    <div className="p-4 bg-gradient-to-r from-blue-100 to-gray-100 min-h-screen flex justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-screen-lg">
+        <Profile
+          userId={props.userId}
+          name={name}
+          className="bg-white p-4 rounded-lg shadow-md"
+        />
+        <div className="md:col-span-2 bg-white p-4 rounded-lg shadow-md">
           <PostList userId={props.userId} name={name} />
         </div>
       </div>

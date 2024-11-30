@@ -58,7 +58,7 @@ export const ClassZone = (props) => {
 
   if (props.userId === null) {
     return (
-      <div className="p-4 bg-gray-100 min-h-screen flex justify-center">
+      <div className="p-4 bg-gradient-to-r from-blue-100 to-gray-100 min-h-screen flex justify-center">
         <Result
           className="font-bold"
           status="warning"
@@ -70,7 +70,7 @@ export const ClassZone = (props) => {
 
   return (
     <>
-      <div className="p-4 bg-gray-100 min-h-screen flex justify-center">
+      <div className="p-4 bg-gradient-to-r from-blue-100 to-gray-100 min-h-screen flex justify-center">
         <div className="bg-white flex p-4 rounded w-full max-w-screen-lg shadow-md h-screen overflow-y-auto ">
           <div className="w-full">
             <Chat data={activeChat} />

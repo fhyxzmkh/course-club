@@ -46,7 +46,7 @@ export const Exam = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen flex justify-center">
+    <div className="p-4 bg-gradient-to-r from-blue-100 to-gray-100 min-h-screen flex justify-center">
       <div className="bg-white p-4 rounded w-full max-w-screen-lg shadow-md h-full">
         <Card
           style={{ minHeight: "780px", maxHeight: "780px", overflowY: "auto" }}

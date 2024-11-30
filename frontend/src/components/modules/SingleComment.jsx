@@ -5,12 +5,16 @@
 //   content: String,
 // };
 
+import { Divider } from "antd";
+
 export const SingleComment = ({ comment }) => {
   return (
-    <div>
-      <p>
-        {comment.creator_name} : {comment.content}
-      </p>
-    </div>
+    <>
+      <div>
+        <span className="font-bold">{comment.creator_name}</span>
+        <span> : </span>
+        <span>{comment.content}</span>
+      </div>
+    </>
   );
 };

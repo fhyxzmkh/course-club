@@ -26,7 +26,7 @@ const text = [
 
 export const ResourceDownload = ({ resource }) => {
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-gray-100 flex justify-center p-4">
       <div className="w-full max-w-2xl bg-white shadow-lg rounded-lg p-8">
         <div className="space-y-6">
           <div className="flex items-center space-x-4">

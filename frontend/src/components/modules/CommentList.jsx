@@ -1,5 +1,6 @@
 import { SingleComment } from "./SingleComment.jsx";
 import { useEffect, useState } from "react";
+import { Card, Divider, Space } from "antd";
 
 export const CommentList = ({ parentId, comments, setComments }) => {
   useEffect(() => {
@@ -22,7 +23,9 @@ export const CommentList = ({ parentId, comments, setComments }) => {
   return (
     <>
       {comments.map((comment) => (
-        <SingleComment key={comment._id} comment={comment} />
+        <Space.Compact key={comment._id} className="w-full mb-1 mt-1">
+          <SingleComment comment={comment} />
+        </Space.Compact>
       ))}
     </>
   );

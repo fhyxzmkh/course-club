@@ -10,7 +10,10 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 //   import.meta.url,
 // ).toString();
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).href;
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.mjs",
+  import.meta.url,
+).href;
 
 export const OnlineLearning = () => {
   const [numPages, setNumPages] = useState(null);
@@ -28,7 +31,7 @@ export const OnlineLearning = () => {
   const goToNextPage = () => setPageNumber(pageNumber + 1);
 
   return (
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+    <div className="p-4 bg-gradient-to-r from-blue-100 to-gray-100 min-h-screen flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-screen-lg mx-auto">
         <div className="mb-8">
           <iframe
