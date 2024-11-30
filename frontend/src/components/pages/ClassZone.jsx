@@ -39,34 +39,20 @@ export const ClassZone = (props) => {
     loadMessageHistory(ALL_CHAT);
   }, []);
 
-  const {
-    sendMessage,
-    sendJsonMessage,
-    lastMessage,
-    lastJsonMessage,
-    readyState,
-    getWebSocket,
-  } = useWebSocket(socketUrl, {
-    onOpen: () => console.log("opened"),
-
+  const { sendMessage, readyState } = useWebSocket(socketUrl, {
+    onOpen: () => console.log("WebSocket连接已打开"),
     onMessage: (event) => {
       try {
         const messageData = JSON.parse(event.data);
-
-        const _recipient = {
-          _id: messageData.recipientId,
-          name: messageData.recipientName,
-        };
-
         setActiveChat((prevActiveChat) => ({
-          recipient: _recipient,
-          messages: prevActiveChat.messages.concat(messageData),
+          ...prevActiveChat,
+          messages: [...prevActiveChat.messages, messageData],
         }));
       } catch (error) {
-        console.error("Error updating message history:", error);
+        console.error("Error parsing message:", error);
       }
     },
-    onClose: () => console.log("closed"),
+    onClose: () => console.log("WebSocket连接已关闭"),
     shouldReconnect: (closeEvent) => true,
   });
 

@@ -2,7 +2,6 @@ package org.backend.config;
 
 import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
-import org.backend.model.Message;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -14,14 +13,14 @@ public class WebSocketManager {
 
     private final static ConcurrentHashMap<String, WebSocketServer> webSocketServerMap = new ConcurrentHashMap<>();
 
-    public static void addWebSocketServer(WebSocketServer webSocketServer){
-        if (webSocketServer != null){
+    public static void addWebSocketServer(WebSocketServer webSocketServer) {
+        if (webSocketServer != null) {
             webSocketServerSet.add(webSocketServer);
             webSocketServerMap.put(webSocketServer.getSessionId(), webSocketServer);
         }
     }
 
-    public static void removeWebSocketServer(WebSocketServer webSocketServer){
+    public static void removeWebSocketServer(WebSocketServer webSocketServer) {
         webSocketServerSet.remove(webSocketServer);
         webSocketServerMap.remove(webSocketServer.getSessionId());
     }
@@ -53,10 +52,15 @@ public class WebSocketManager {
      * 发送消息给所有用户
      * @param msg
      */
-    public static void sentToAllUser(String msg){
+    public static void sentToAllUser(String msg) {
+        log.info("开始广播消息：{}", msg);
         for (WebSocketServer webSocketServer : webSocketServerSet) {
-            sentToUser(webSocketServer.getSession(), msg);
+            Session session = webSocketServer.getSession();
+            if (session != null && session.isOpen()) {
+                session.getAsyncRemote().sendText(msg);
+                log.info("消息发送给用户：{}", session.getId());
+            }
         }
-        log.info("向所有用户发送WebSocket消息完毕，消息：{}", msg);
+        log.info("广播完成。");
     }
 }
