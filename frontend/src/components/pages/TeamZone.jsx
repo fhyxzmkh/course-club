@@ -68,17 +68,22 @@ export const TeamZone = (props) => {
       try {
         const messageData = JSON.parse(event.data);
 
-        console.log(messageData);
-
         const _recipient = {
           _id: messageData.recipientId,
           name: messageData.recipientName,
         };
 
-        setActiveChat((prevActiveChat) => ({
-          recipient: _recipient,
-          messages: prevActiveChat.messages.concat(messageData),
-        }));
+        if (_recipient._id === props.userId) {
+          setActiveChat((prevActiveChat) => ({
+            recipient: prevActiveChat.recipient,
+            messages: prevActiveChat.messages.concat(messageData),
+          }));
+        } else {
+          setActiveChat((prevActiveChat) => ({
+            recipient: _recipient,
+            messages: prevActiveChat.messages.concat(messageData),
+          }));
+        }
       } catch (error) {
         console.error("Error updating message history:", error);
       }
@@ -115,7 +120,6 @@ export const TeamZone = (props) => {
           </div>
         </div>
       </div>
-      )
     </>
   );
 };
