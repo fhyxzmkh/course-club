@@ -24,7 +24,10 @@ export const TeamZone = (props) => {
     const loadMessageHistory = async (recipient) => {
       try {
         const response = await axios.get("/api/chat", {
-          params: { recipientId: recipient._id },
+          params: {
+            recipientId:
+              recipient._id === undefined ? recipient.googleId : recipient._id,
+          },
         });
 
         setActiveChat({

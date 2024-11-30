@@ -3,12 +3,8 @@ import { NewMessage } from "./NewMessage.jsx";
 import { List } from "antd";
 
 export const Chat = (props) => {
-  console.log(props.data.recipient.name);
   return (
     <div className="flex-col">
-      <h3 className="font-bold mb-4 text-2xl text-center">
-        Chatting with {props.data.recipient.name}
-      </h3>
       <div>
         <List
           itemLayout="vertical"
